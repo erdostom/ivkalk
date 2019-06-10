@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Iv Kalk",
-    "slug": "sheeter",
+    "slug": "ivkalk",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": [
@@ -24,7 +24,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tamaserdos.ivkalk"
+    },
+    "android": {
+      "package": "com.tamaserdos.ivkalk"
+    },
+    "description": ""
   }
 }
