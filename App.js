@@ -1,30 +1,108 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TextInput } from 'react-native';
+import {FlingGestureHandler, Directions, State} from 'react-native-gesture-handler'
+import Konstants from './Constants'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle='light-content' />
-      <View style={styles.top}>
-        <View style={styles.topTitle}>
-          <Text style={styles.titleText}>Iv Kalk</Text>
-        </View>
-        <View style={styles.topBody}>
-          <Text>BODY leFT</Text>
-        </View>
-      </View>
-      <View style={styles.bottom}>
-        <View style={styles.bottomLeft}>
-          <Text style={styles.bottomText}>150</Text>
-          <Text style={styles.bottomSubText}>gsm</Text>
-        </View>
-        <View style={styles.bottomRight}>
-          <Text style={styles.bottomText}>64 x 90</Text>
-          <Text style={styles.bottomSubText}>cm</Text>
-        </View>
-      </View>
-    </View>
-  );
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedGSM: 80,
+      selectedSizeIndex: 2,
+    }
+
+  }
+
+
+  incrementSize = () => {
+    let target = 0
+    if (this.state.selectedSizeIndex !== Konstants.sheetSizes.length - 1 ) {
+      target = this.state.selectedSizeIndex + 1
+    }
+    this.setSize(target)
+  }
+
+  decrementSize = () => {
+    let target = Konstants.sheetSizes.length - 1
+    if (this.state.selectedSizeIndex !== 0 ) {
+      target = this.state.selectedSizeIndex - 1
+    }
+    this.setSize(target)
+  }
+
+  setSize = (target) => {
+    this.setState({
+      ...this.state,
+      selectedSizeIndex: target
+    })
+  }
+
+  render() {
+    _swipeSizeUp = ({nativeEvent}) => {
+      if (nativeEvent.state === State.ACTIVE) {
+        this.incrementSize()
+      }
+    }
+    _swipeSizeDown = ({nativeEvent}) => {
+      if (nativeEvent.state === State.ACTIVE) {
+        this.incrementSize()
+      }
+    }
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle='light-content' />
+        <View style={styles.top}>
+          <View style={styles.topTitle}>
+            <Text style={styles.titleText}>Iv Kalk</Text>
+          </View>
+          <View style={styles.params}>
+            <View style={styles.paramsLeft}>
+              <Text style={styles.bottomText} onPress={() => console.log('zsumzsum')}>
+                {this.state.selectedGSM}
+              </Text>
+              <Text style={styles.bottomSubText}>gsm</Text>
+            </View>
+            <FlingGestureHandler
+              direction={Directions.RIGHT }
+              onHandlerStateChange={_swipeSizeUp}
+            >
+                <FlingGestureHandler
+                  direction={Directions.UP}
+                  onHandlerStateChange={_swipeSizeUp}
+                >
+                    <FlingGestureHandler
+                      direction={Directions.LEFT}
+                      onHandlerStateChange={_swipeSizeDown}
+                    >
+                        <FlingGestureHandler
+                          direction={Directions.DOWN}
+                          onHandlerStateChange={_swipeSizeDown}
+                        >
+                            <View style={styles.paramsRight}>
+                              <Text style={styles.bottomText}>
+                                {Konstants.sheetSizes[this.state.selectedSizeIndex]['x']} x {Konstants.sheetSizes[this.state.selectedSizeIndex]['y']}
+                              </Text>
+                              <Text style={styles.bottomSubText}>mm</Text>
+                            </View>
+                          </FlingGestureHandler>
+                        </FlingGestureHandler>
+                      </FlingGestureHandler>
+                    </FlingGestureHandler>
+                  </View>
+                  <View style={styles.topBody}>
+                    <TextInput
+                      style={styles.input}
+                      autoCompleteType='off'
+                      autoCorrect={false}
+                      autoFocus={true}
+                      keyboardType='numeric'
+                    />
+                      </View>
+                    </View>
+                  </View>
+    );
+  }
 }
 
 const borders = {
@@ -62,13 +140,16 @@ const styles = StyleSheet.create({
   },
   topBody: {
     flex: 9,
-    flexDirection: 'row',
   },
-  bottom: {
+  input: {
+    height: 50,
+    borderWidth: 1,
+  },
+  params: {
     flex: 1,
     flexDirection: 'row',
   },
-  bottomLeft: {
+  paramsLeft: {
     flex: 1,
     backgroundColor: colors.dmgrey,
     justifyContent: 'center',
@@ -82,11 +163,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
   },
-  bottomRight: {
+  paramsRight: {
     backgroundColor: colors.dgrey,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
 });
+
 
