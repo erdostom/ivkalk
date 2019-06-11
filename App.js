@@ -7,6 +7,7 @@ import Konstants from './Constants'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       selectedGSMIndex: 4,
       selectedSizeIndex: 2,
