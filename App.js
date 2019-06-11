@@ -107,7 +107,7 @@ export default class App extends React.Component {
     }
     _swipeSizeDown = ({nativeEvent}) => {
       if (nativeEvent.state === State.ACTIVE) {
-        this.incrementSize()
+        this.decrementSize()
       }
     }
 
