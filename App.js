@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 2,
-    fontSize: 40,
+    fontSize: 32,
     // fontWeight: '800',
   },
   blankspace: {
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     color: '#fff',
-    fontSize: 36,
+    fontSize: 24,
   },
   bottomSubText: {
     color: '#fff',
