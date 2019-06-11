@@ -43,7 +43,7 @@ export default class App extends React.Component {
     })
   }
 
-  incrementSize = () => {
+  decrementSize = () => {
     let target = 0
     if (this.state.selectedSizeIndex !== Konstants.sheetSizes.length - 1 ) {
       target = this.state.selectedSizeIndex + 1
@@ -51,7 +51,7 @@ export default class App extends React.Component {
     this.setSize(target)
   }
 
-  decrementSize = () => {
+  incrementSize = () => {
     let target = Konstants.sheetSizes.length - 1
     if (this.state.selectedSizeIndex !== 0 ) {
       target = this.state.selectedSizeIndex - 1
